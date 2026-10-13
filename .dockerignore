@@ -1,0 +1,9 @@
+node_modules
+.env
+.git
+test
+artifacts
+data
+deploy
+docs
+.review

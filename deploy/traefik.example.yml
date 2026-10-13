@@ -1,0 +1,21 @@
+# Optional file-provider example. Replace the hostname and allowed client ranges.
+# Match the entryPoint and service DNS name to your reverse proxy environment.
+# IE6 clients need a plain HTTP entryPoint; no particular hosting platform is required.
+http:
+  routers:
+    chessgpt-legacy:
+      entryPoints: [web]
+      rule: Host(`chessgpt.example.test`)
+      priority: 1000
+      service: chessgpt
+      middlewares: [chessgpt-lan-only]
+  middlewares:
+    chessgpt-lan-only:
+      ipAllowList:
+        # Example local/LAN ranges; replace with the client networks you permit.
+        sourceRange: [127.0.0.1/32, 192.168.0.0/16]
+  services:
+    chessgpt:
+      loadBalancer:
+        servers:
+          - url: http://chessgpt:3080

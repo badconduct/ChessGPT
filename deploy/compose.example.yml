@@ -1,0 +1,33 @@
+# Example only. Set the image, API endpoint, model, paths and network for your host.
+name: chessgpt
+services:
+  app:
+    image: ${CHESSGPT_IMAGE:?Set your ChessGPT image reference}
+    container_name: chessgpt
+    init: true
+    restart: unless-stopped
+    networks: [app]
+    environment:
+      AI_MODE: api
+      AI_API_FORMAT: ${AI_API_FORMAT:-chat}
+      AI_URL: ${AI_URL:?Set the complete API POST endpoint}
+      AI_MODEL: ${AI_MODEL:?Set your provider model ID}
+      AI_TOKEN_FILE: /run/secrets/ai-token
+      RECAP_DIR: /app/data/recaps
+      CHESS_DIFFICULTY: ${CHESS_DIFFICULTY:-normal}
+    volumes:
+      - ${CHESSGPT_TOKEN_FILE:?Set the host token-file path}:/run/secrets/ai-token:ro
+      - ${CHESSGPT_DATA_DIR:?Set the host recap-directory path}:/app/data
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 256m
+    pids_limit: 64
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3080/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+networks:
+  app:
+    external: true
+    name: ${CHESSGPT_NETWORK:-chessgpt-net}

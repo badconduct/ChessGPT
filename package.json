@@ -1,0 +1,24 @@
+{
+  "name": "chessgpt",
+  "version": "0.1.0",
+  "private": true,
+  "description": "IE6 chess client with a modern Codex CLI or remote API backend",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env scripts/start.js",
+    "practice": "node --env-file-if-exists=.env scripts/start.js --demo",
+    "test": "node --test",
+    "check": "node --check server.js && node --check scripts/start.js && node --check public/client.js && npm test"
+  },
+  "dependencies": {
+    "chess.js": "1.4.0",
+    "stockfish": "19.0.1"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0"
+  },
+  "license": "GPL-3.0-only"
+}

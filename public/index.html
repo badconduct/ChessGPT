@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>ChessGPT - Your move.</title><link rel="stylesheet" type="text/css" href="/style.css"><script type="text/javascript" src="/client.js"></script></head>
+<body onload="init()">
+<div class="shell">
+<table class="masthead" cellspacing="0" cellpadding="0"><tr><td><div class="eyebrow">THE CHESS ROOM</div><h1>Chess<span>GPT</span><small>98</small></h1></td><td class="edition">HUMAN vs. MACHINE<br><span>Windows 98SE edition</span></td></tr></table>
+<div class="toolbar"><span class="tag">YOU PLAY BLACK</span> &nbsp; Take your time. Make your move.</div>
+<div id="servernotice" class="servernotice" style="display:none"></div>
+<table class="workspace" cellspacing="0" cellpadding="0"><tr><td class="boardpanel">
+<table class="boardcaption" cellspacing="0"><tr><td>THE BOARD</td><td class="right">BLACK'S PERSPECTIVE</td></tr></table>
+<div id="board"></div>
+<div class="boardnote"><span class="marker">+</span> Select a piece to see its legal moves.<br><span class="noteindent">Gold squares show available destinations.</span></div>
+<div id="promotion" class="promotion" style="display:none">
+<div class="label">PAWN PROMOTION</div><p>Choose a piece for your pawn:</p>
+<button type="button" onclick="choosePromotion('q')">Queen</button>
+<button type="button" onclick="choosePromotion('r')">Rook</button>
+<button type="button" onclick="choosePromotion('b')">Bishop</button>
+<button type="button" onclick="choosePromotion('n')">Knight</button>
+<button type="button" onclick="cancelPromotion()">Cancel</button>
+</div>
+
+<div id="result" class="result"></div>
+<div id="matchreview" class="boardnote" style="display:none"></div>
+<div id="matchlesson" class="boardnote" style="display:none"></div>
+<button id="forgetlesson" type="button" onclick="forgetLesson()" style="display:none">Forget previous lesson</button>
+</td><td class="sidebar">
+<div class="actions"><label for="difficulty">Next game:</label> <select id="difficulty"><option value="easy">Easy / assisted</option><option value="normal" selected>Normal / assisted</option><option value="hard">Hard / assisted</option><option value="pure">Pure ChatGPT</option></select><br><button id="start" type="button" onclick="startGame()">Start game</button> <button id="retry" type="button" onclick="retryWhite()" disabled>Retry White</button></div>
+<div class="label">MATCH STATUS</div><h2 id="status">Ready when you are.</h2><div id="mode" class="subtle">Press Start. White moves first.</div>
+<div id="opponent" class="subtle">Assisted: Stockfish checks candidates; ChatGPT chooses.</div>
+<div class="clock"><div class="label">CHATGPT / WHITE</div><div id="whiteclock" class="time">00:00</div></div>
+<div class="clock yourclock"><div class="label">YOU / BLACK</div><div id="blackclock" class="time">00:00</div></div>
+<div class="subtle clocknote">Elapsed thinking time &middot; no time limit</div>
+<div class="section"><div class="label">MOVE SHEET <span id="movecount"></span></div><div id="history" class="history"><p class="subtle">The opening is still unwritten.</p></div></div>
+<div class="section"><div class="label">BOARD / ASCII</div><pre id="ascii" class="ascii"></pre></div>
+<div class="section"><a href="#exchange" onclick="togglePrompt(); return false;">View full match recap &darr;</a></div>
+</td></tr></table>
+<div id="exchange" class="recappanel" style="display:none">
+<div class="label">FULL MATCH RECAP</div>
+<p><button type="button" onclick="selectRecap('current')">Current match</button> <button id="previousrecap" type="button" onclick="selectRecap('previous')" disabled>Previous match</button> &nbsp; <a id="downloadrecap" href="/api/recap?download=1" onclick="return allowRecapDownload();">Download recap</a></p>
+<pre id="recap">Start a match to see its full record.</pre>
+<div style="display:none"><p id="strategy"></p><p id="strategychange"></p><pre id="prompt"></pre><p id="reply"></p></div>
+</div>
+<div class="footer">A classic board. A modern opponent.<span>HTTP + GIF + ES3 &nbsp; / &nbsp; BUILT FOR IE6</span></div>
+</div><noscript><p>Please enable JavaScript to play ChessGPT.</p></noscript>
+</body></html>

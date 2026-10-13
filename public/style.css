@@ -1,0 +1,24 @@
+body { margin:0; padding:8px 8px; background:#e7e5da; color:#272c25; font-family:Tahoma,Arial,sans-serif; font-size:12px; }
+.shell { width:740px; margin:0 auto; background:#faf9f2; border:1px solid #b6baaa; }
+.masthead { width:100%; } .masthead td { padding:8px 20px 6px; }
+.eyebrow,.label { font-size:10px; letter-spacing:2px; font-weight:bold; color:#69745e; }
+h1 { margin:6px 0 0; font-family:Georgia,'Times New Roman',serif; font-size:32px; font-weight:normal; letter-spacing:-2px; } h1 span { color:#6c795d; } h1 small { font:11px Tahoma,Arial,sans-serif; letter-spacing:0; background:#e5e9dc; padding:4px; margin-left:9px; vertical-align:top; }
+.edition { text-align:right; font-size:10px; letter-spacing:1px; line-height:20px; } .edition span { color:#7a7e70; letter-spacing:0; }
+.toolbar { background:#e9ecdf; padding:8px 20px; border-top:1px solid #cdd3be; border-bottom:1px solid #cdd3be; color:#606951; } .tag { background:#344332; color:#faf9f2; font-size:9px; font-weight:bold; letter-spacing:1px; padding:4px 6px; }
+.workspace { width:100%; } .boardpanel { width:410px; padding:12px 16px 14px; vertical-align:top; } .sidebar { width:230px; padding:12px 16px 14px 0; vertical-align:top; }
+.boardcaption { width:100%; font-size:9px; letter-spacing:1px; color:#69745e; margin-bottom:12px; } .right { text-align:right; }
+.chessboard { border:6px solid #344332; background:#344332; table-layout:fixed; } .chessboard td { width:44px; height:44px; padding:0; text-align:center; vertical-align:middle; } .chessboard .axis { width:18px; height:18px; color:#e7eadb; font-size:10px; } .chessboard .light { background:#e9ead7; } .chessboard .dark { background:#839477; }
+.square { display:block; width:44px; height:44px; position:relative; text-decoration:none; color:#344332; } .square img { border:0; width:40px; height:40px; margin-top:2px; } .square .coord { position:absolute; bottom:2px; right:3px; font-size:9px; } .square .dot { font-size:32px; line-height:50px; }
+.chessboard .selected { background:#ddbb61; } .chessboard .legal { background:#d7c77e; } .chessboard .last { background:#b4b985; }
+.boardnote { line-height:21px; margin-top:8px; color:#666f5e; } .marker { font-size:17px; color:#6b7859; padding-right:7px; } .noteindent { padding-left:20px; color:#939789; }
+.actions { margin-top:0; margin-bottom:12px; } button { font:12px Tahoma,Arial,sans-serif; padding:7px 13px; cursor:pointer; } #start { background:#344332; color:white; border:2px outset #65745e; } #retry { color:#344332; }
+.promotion { margin-top:14px; padding:12px; background:#eee3ba; border:1px solid #b99a48; } .promotion p { margin:8px 0; } .promotion button { padding:6px 8px; margin:2px 0; }
+h2 { font-family:Georgia,'Times New Roman',serif; font-size:20px; font-weight:normal; line-height:24px; margin:10px 0; } .subtle { color:#818875; font-size:11px; line-height:17px; }
+.clock { background:#eceee3; border:1px solid #d4d8c8; padding:6px 12px; margin-top:8px; } .yourclock { background:#344332; border-color:#344332; color:#faf9f2; margin-top:8px; } .yourclock .label { color:#b7c3a9; } .time { font-family:'Courier New',monospace; font-size:26px; margin-top:2px; } .clocknote { margin-top:8px; font-size:10px; }
+.section { border-top:1px solid #d5d9ca; margin-top:10px; padding-top:8px; } .history { height:72px; overflow:auto; margin-top:10px; } .movetable { width:100%; font-family:'Courier New',monospace; font-size:12px; } .movetable td { padding:3px; } .movetable .number { color:#879078; width:25px; }
+.ascii { font:10px/14px 'Courier New',monospace; color:#6b755e; margin:12px 0 0; } a { color:#546546; } #exchange pre { white-space:pre; font:10px/14px 'Courier New',monospace; width:226px; overflow:auto; } .result { margin-top:15px; font-family:Georgia,serif; font-size:20px; color:#5d6d41; }
+.footer { border-top:1px solid #d5d9ca; padding:15px 24px; color:#7e8772; font-size:10px; } .footer span { float:right; font-size:9px; }
+.recappanel { border-top:1px solid #d5d9ca; padding:20px 24px; } #exchange #recap { width:688px; height:380px; overflow:auto; white-space:pre; font:11px/16px 'Courier New',monospace; background:#eceee3; border:1px solid #d4d8c8; }
+.servernotice { padding:14px 24px; background:#eee3ba; border-bottom:1px solid #b99a48; line-height:20px; }
+
+.actions select { font:12px Tahoma,Arial,sans-serif; margin-bottom:6px; }

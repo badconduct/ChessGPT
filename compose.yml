@@ -1,0 +1,30 @@
+name: chessgpt
+services:
+  app:
+    build: .
+    init: true
+    restart: unless-stopped
+    ports:
+      - "3080:3080"
+    environment:
+      AI_MODE: ${AI_MODE:-api}
+      AI_API_FORMAT: ${AI_API_FORMAT:-chat}
+      AI_URL: ${AI_URL:-https://api.example.com/v1/chat/completions}
+      AI_MODEL: ${AI_MODEL:-YOUR_MODEL_ID}
+      AI_TOKEN: ${AI_TOKEN:-}
+      AI_PROFILE: ${AI_PROFILE:-}
+      RECAP_DIR: /app/data/recaps
+      CHESS_DIFFICULTY: ${CHESS_DIFFICULTY:-normal}
+    volumes:
+      - recaps:/app/data
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 256m
+    pids_limit: 64
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3080/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+volumes:
+  recaps:
