@@ -6,8 +6,8 @@ function el(id) { return document.getElementById(id); }
 function text(node) { return node ? (typeof node.text !== 'undefined' ? node.text : node.textContent) : ''; }
 function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 function init() {
-  var html = '<table class="chessboard" cellspacing="0" cellpadding="0"><tr><td class="axis"></td>', r, f, sq;
-  for (f = 7; f >= 0; f--) html += '<td class="axis">' + 'abcdefgh'.charAt(f) + '</td>';
+  var html = '<table class="chessboard" width="382" cellspacing="0" cellpadding="0"><colgroup><col width="18"><col span="8" width="44"></colgroup><tr><td class="axis"></td>', r, f, sq;
+  for (f = 7; f >= 0; f--) html += '<td class="fileaxis">' + 'abcdefgh'.charAt(f) + '</td>';
   html += '</tr>';
   for (r = 1; r <= 8; r++) {
     html += '<tr><td class="axis">' + r + '</td>';
