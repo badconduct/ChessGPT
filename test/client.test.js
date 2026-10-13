@@ -135,6 +135,25 @@ for (const fallback of [false, true]) {
   });
 }
 
+test('starting and restarting with the legacy DOM keeps each ASCII rank on its own line', () => {
+  const { context, nodes, game } = client('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+  nodes.ascii.innerText = ''; nodes.prompt.innerText = '';
+  // IE6's PRE HTML parser loses newlines; don't let this adapter hide that path.
+  Object.defineProperty(nodes.ascii, 'innerHTML', {
+    set(value) { throw new Error('ASCII must not be sent through the legacy HTML parser'); }
+  });
+  for (const fen of [game.chess.fen(), 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1', game.chess.fen()]) {
+    game.chess = new Chess(fen);
+    game.lastPrompt = 'Board follows:\n<literal & text>\nChoose a move.';
+    const root = xmlRoot(stateXml(game, 'api'));
+    const getTags = root.getElementsByTagName;
+    root.getElementsByTagName = tag => tag === 'prompt' ? [{ text: game.lastPrompt }] : getTags(tag);
+    context.render(root);
+    assert.equal(nodes.ascii.innerText.split('\r\n').join('\n'), game.chess.ascii());
+    assert.equal(nodes.prompt.innerText, 'Board follows:\r\n<literal & text>\r\nChoose a move.');
+  }
+});
+
 for (const legacyText of [true, false]) {
   test('recap uses ActiveX and displays literal replies with ' + (legacyText ? 'IE6 innerText' : 'escaped HTML'), () => {
     const { context, nodes } = client('7k/8/8/8/8/8/p7/7K b - - 0 1');
@@ -152,7 +171,7 @@ for (const legacyText of [true, false]) {
     context.selectRecap('previous');
     assert.match(calls[0].url, /\/api\/recap\?match=previous&t=/);
     assert.equal(nodes.downloadrecap.href, '/api/recap?match=previous&download=1');
-    if (legacyText) assert.equal(nodes.recap.innerText, content);
+    if (legacyText) assert.equal(nodes.recap.innerText, content.replace(/\n/g, '\r\n'));
     else { assert.match(nodes.recap.innerHTML, /&lt;script&gt;/); assert.ok(nodes.recap.innerHTML.includes('\n')); }
   });
 }

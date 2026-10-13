@@ -5,6 +5,11 @@ var recapSupported = false;
 function el(id) { return document.getElementById(id); }
 function text(node) { return node ? (typeof node.text !== 'undefined' ? node.text : node.textContent) : ''; }
 function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function preText(node, value) {
+  // IE6 reparses PRE innerHTML and collapses its newlines. Use literal text.
+  if (typeof node.innerText !== 'undefined') node.innerText = String(value).replace(/\r\n|\r|\n/g, '\r\n');
+  else node.innerHTML = escapeHtml(value);
+}
 function init() {
   var html = '<table class="chessboard" width="382" cellspacing="0" cellpadding="0"><colgroup><col width="18"><col span="8" width="44"></colgroup><tr><td class="axis"></td>', r, f, sq;
   for (f = 7; f >= 0; f--) html += '<td class="fileaxis">' + 'abcdefgh'.charAt(f) + '</td>';
@@ -64,8 +69,8 @@ function render(root) {
   el('history').innerHTML = history.length ? html + '</table>' : '<p class="subtle">Waiting for White\'s opening.</p>';
   el('history').scrollTop = el('history').scrollHeight;
   el('movecount').innerHTML = ' / ' + Math.ceil(history.length / 2);
-  el('ascii').innerHTML = escapeHtml(text(root.getElementsByTagName('ascii')[0]));
-  el('prompt').innerHTML = escapeHtml(text(root.getElementsByTagName('prompt')[0]));
+  preText(el('ascii'), text(root.getElementsByTagName('ascii')[0]));
+  preText(el('prompt'), text(root.getElementsByTagName('prompt')[0]));
   el('reply').innerHTML = 'Reply: ' + escapeHtml(text(root.getElementsByTagName('reply')[0]));
   el('strategy').innerHTML = 'White strategy: ' + escapeHtml(text(root.getElementsByTagName('strategy')[0]) || 'Not established.');
   el('strategychange').innerHTML = 'Plan update: ' + escapeHtml(text(root.getElementsByTagName('change')[0]) || 'None.');
@@ -150,9 +155,7 @@ function selectRecap(match) {
   loadRecap();
 }
 function recapText(value) {
-  // IE6 innerText preserves line breaks in PRE without interpreting reply markup.
-  if (typeof el('recap').innerText !== 'undefined') el('recap').innerText = value;
-  else el('recap').innerHTML = escapeHtml(value);
+  preText(el('recap'), value);
 }
 function loadRecap() {
   if (!state) { recapText('Start a match to see its recap.'); return; }
